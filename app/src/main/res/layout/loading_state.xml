@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/retry_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <com.google.android.material.button.MaterialButton
+        tools:visibility="visible"
+        android:visibility="invisible"
+        android:id="@+id/retry_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/loading_retry"
+        app:layout_constraintBottom_toTopOf="@+id/error_text"
+        app:layout_constraintEnd_toEndOf="@+id/progress"
+        app:layout_constraintStart_toStartOf="@+id/progress"
+        app:layout_constraintTop_toBottomOf="@+id/progress" />
+
+    <com.google.android.material.textview.MaterialTextView
+        tools:visibility="visible"
+        android:visibility="invisible"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+        android:id="@+id/error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/retry_button"
+        app:layout_constraintStart_toStartOf="@+id/retry_button"
+        app:layout_constraintTop_toBottomOf="@+id/retry_button"
+        tools:text="ERROR" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

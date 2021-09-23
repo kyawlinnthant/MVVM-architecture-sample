@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/ic_world"
+        android:id="@+id/popular"
+        android:title="@string/bottom_popular"/>
+    <item
+        android:icon="@drawable/ic_world"
+        android:id="@+id/upcoming"
+        android:title="@string/bottom_upcoming"/>
+</menu>
+

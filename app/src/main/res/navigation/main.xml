@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    app:startDestination="@id/popular">
+
+    <fragment
+        android:id="@+id/popular"
+        android:name="com.klt.gbs.ui.popular.PopularFragment"
+        android:label="PopularFragment" >
+        <action
+            android:id="@+id/action_popularFragment_to_upcomingFragment"
+            app:destination="@id/upcoming" />
+    </fragment>
+    <fragment
+        android:id="@+id/upcoming"
+        android:name="com.klt.gbs.ui.upcoming.UpcomingFragment"
+        android:label="UpcomingFragment" >
+        <action
+            android:id="@+id/action_upcomingFragment_to_popularFragment"
+            app:destination="@id/popular" />
+    </fragment>
+</navigation>
