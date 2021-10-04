@@ -11,7 +11,6 @@ abstract class BaseActivity<VB : ViewBinding>(private val inflate: InflateActivi
     private var _binding : VB? = null
     val binding get() = _binding!!
 
-
     abstract fun initUi()
     abstract fun observe()
 
