@@ -26,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
-        android:background="@color/teal_700"
+        android:background="@color/purple_500"
         app:itemTextColor="@color/bg_btn_nav"
         app:itemIconTint="@color/bg_btn_nav"
         app:menu="@menu/btn_nav_menu"
