@@ -11,6 +11,5 @@ class PopularFragment : BaseFragment<FragmentPopularBinding>(FragmentPopularBind
     }
 
     override fun initUi() {
-        val r = binding.recyclerView
     }
 }

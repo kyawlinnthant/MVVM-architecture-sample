@@ -45,18 +45,20 @@ class AppRepository @Inject constructor(
     suspend fun getMovies() = flow {
         val query = dbHelper.getMovies()
         try {
-            emit(query)
+            emit(Resource.loading(query))
+            emit(Resource.success(query))
         } catch (e: Exception) {
-            emit(e.localizedMessage)
+            emit(Resource.error(e.localizedMessage ?: "error", query))
         }
     }.flowOn(ioDispatcher)
 
     suspend fun addMovies(list: List<Movie>) = flow {
         val query = dbHelper.saveMovies(list)
         try {
-            emit(query)
+            emit(Resource.loading(query))
+            emit(Resource.success(query))
         } catch (e: Exception) {
-            emit(e.localizedMessage)
+            emit(Resource.error(e.localizedMessage ?: "error", query))
         }
     }.flowOn(ioDispatcher)
 
