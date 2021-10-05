@@ -1,19 +1,45 @@
 package com.klt.gbs.model
 
 import android.os.Parcelable
-import com.squareup.moshi.Json
-import kotlinx.android.parcel.Parcelize
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+
+
+/*{
+    "adult": false,
+    "backdrop_path": "/t9nyF3r0WAlJ7Kr6xcRYI4jr9jm.jpg",
+    "genre_ids": [
+    878,
+    28
+    ],
+    "id": 580489,
+    "original_language": "en",
+    "original_title": "Venom: Let There Be Carnage",
+    "overview": "After finding a host body in investigative reporter Eddie Brock, the alien symbiote must face a new enemy, Carnage, the alter ego of serial killer Cletus Kasady.",
+    "popularity": 4238.873,
+    "poster_path": "/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg",
+    "release_date": "2021-09-30",
+    "title": "Venom: Let There Be Carnage",
+    "video": false,
+    "vote_average": 7.5,
+    "vote_count": 164
+}*/
 
 @Parcelize
+@Entity
 data class Movie(
-    @Json(name = "id")
-    val id: Int,
-    @Json(name = "name")
-    val name: String = "",
-    @Json(name = "email")
-    val email: String = "",
-    @Json(name = "website")
-    val website: String = "",
-    @Json(name = "phone")
-    val phone: String = ""
+    @SerializedName("id")
+    @PrimaryKey(autoGenerate = false) val movieId: Int,
+    @SerializedName("original_title")
+    val original_title: String,
+    @SerializedName("backdrop_path")
+    val backdrop_path: String,
+    @SerializedName("overview")
+    val overview: String,
+    @SerializedName("release_date")
+    val release_date: String,
+    @SerializedName("vote_average")
+    val vote_average: Double
 ) : Parcelable

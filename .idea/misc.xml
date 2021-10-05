@@ -6,6 +6,8 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18432971014492755" />
+        <entry key="app/src/main/res/layout/fragment_popular.xml" value="0.23596014492753623" />
+        <entry key="app/src/main/res/layout/loading_state.xml" value="0.23596014492753623" />
         <entry key="app/src/main/res/menu/btn_nav_menu.xml" value="0.3098958333333333" />
       </map>
     </option>

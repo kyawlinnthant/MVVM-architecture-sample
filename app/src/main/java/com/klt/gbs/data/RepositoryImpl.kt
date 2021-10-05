@@ -1,11 +1,9 @@
 package com.klt.gbs.data
 
 import com.klt.gbs.BuildConfig.API_KEY
-import com.klt.gbs.data.local.DbHelper
-import com.klt.gbs.data.remote.ApiHelper
-import com.klt.gbs.di.DefaultDispatcher
+import com.klt.gbs.data.local.DbDataSource
+import com.klt.gbs.data.remote.ApiDataSource
 import com.klt.gbs.di.IoDispatcher
-import com.klt.gbs.di.MainDispatcher
 import com.klt.gbs.model.Movie
 import com.klt.gbs.util.Resource
 import kotlinx.coroutines.CoroutineDispatcher
@@ -13,37 +11,37 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class AppRepository @Inject constructor(
-    private val apiHelper: ApiHelper,
-    private val dbHelper: DbHelper,
-    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
-    @MainDispatcher private val mainDispatcher: CoroutineDispatcher = Dispatchers.Main
-) {
+@Singleton
+class RepositoryImpl @Inject constructor(
+    private val api: ApiDataSource,
+    private val db: DbDataSource,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+) : Repository {
 
-    suspend fun requestMovies(type: String, page: Int) = flow {
-        val response = apiHelper.getMovieListByTypes(API_KEY, type, page)
+    override suspend fun requestMovies(type: String, page: Int) = flow {
+        val response = api.getMovieListByTypes(type, API_KEY, page)
         try {
             emit(Resource.loading(response.data))
             emit(Resource.success(response.data))
         } catch (e: Exception) {
             emit(Resource.error(e.localizedMessage ?: "error", response.data))
         }
-    }.flowOn(defaultDispatcher)
+    }.flowOn(ioDispatcher)
 
-    suspend fun requestMovieDetail(id: Double, lang: String) = flow {
-        val response = apiHelper.getMovieDetail(API_KEY, id, lang)
+    override suspend fun requestMovieDetail(id: Double, lang: String) = flow {
+        val response = api.getMovieDetail(id, API_KEY, lang)
         try {
             emit(Resource.loading(response.data))
             emit(Resource.success(response.data))
         } catch (e: Exception) {
             emit(Resource.error(e.localizedMessage ?: "error", response.data))
         }
-    }.flowOn(defaultDispatcher)
+    }.flowOn(ioDispatcher)
 
-    suspend fun getMovies() = flow {
-        val query = dbHelper.getMovies()
+    override suspend fun getMovies() = flow {
+        val query = db.getMovies()
         try {
             emit(Resource.loading(query))
             emit(Resource.success(query))
@@ -52,8 +50,8 @@ class AppRepository @Inject constructor(
         }
     }.flowOn(ioDispatcher)
 
-    suspend fun addMovies(list: List<Movie>) = flow {
-        val query = dbHelper.saveMovies(list)
+    override suspend fun addMovies(list: List<Movie>) = flow {
+        val query = db.saveMovies(list)
         try {
             emit(Resource.loading(query))
             emit(Resource.success(query))
