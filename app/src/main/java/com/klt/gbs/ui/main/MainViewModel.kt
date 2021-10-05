@@ -1,5 +1,6 @@
 package com.klt.gbs.ui.main
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,10 +17,13 @@ class MainViewModel @Inject constructor(
     private val repository: AppRepository,
     private val networkHelper: NetworkHelper
 ) : ViewModel() {
-    var movieList : MutableLiveData<List<Movie>> = MutableLiveData()
+
+    private val _movieList : MutableLiveData<List<Movie>> = MutableLiveData()
+    val movieList : LiveData<List<Movie>> get() = _movieList
+
     fun getListByType(type: String){
         viewModelScope.launch {
-            repository.requestMovies(type,25).collect { movieList.value = it.data }
+            repository.requestMovies(type,25).collect { _movieList.value = it.data }
         }
     }
 }
