@@ -6,6 +6,9 @@ import com.klt.gbs.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface Repository {
+
+    //todo change to LiveData for network bound
+
     //from api
     suspend fun requestMovies(type: String, page: Int): Flow<Resource<ResponseMovieList>>
     suspend fun requestMovieDetail(id: Double, lang: String): Flow<Resource<Movie>>

@@ -20,10 +20,7 @@ abstract class NetworkBondResource<ResultType, RequestType> @Inject constructor(
         result.addSource(dbSource) {
             result.removeSource(dbSource)
             if (shouldFetch(it)) fetchFromNetwork(dbSource)
-            else
-                result.addSource(dbSource) {
-                    setValue(Resource.success(it))
-                }
+            else result.addSource(dbSource) { v -> setValue(Resource.success(v)) }
         }
 
     }
@@ -36,9 +33,9 @@ abstract class NetworkBondResource<ResultType, RequestType> @Inject constructor(
             result.removeSource(dbSource)
 
             if (it.isSuccessful) {
-                //todo make in defaultDispatcher
+                //todo make in worker thread
                 saveCallResult(processResponse(it)!!)
-                //todo in main thread
+                //todo make in main thread
                 result.addSource(loadFromDb()) { v -> setValue(Resource.success(v)) }
 
                 if (it.body() == null) {
@@ -66,10 +63,10 @@ abstract class NetworkBondResource<ResultType, RequestType> @Inject constructor(
         }
     }
 
-    //do in default thread
+    //do in worker thread
     protected open fun processResponse(response: Response<RequestType>) = response.body()
 
-    //do in default thread
+    //do in worker thread
     protected abstract fun saveCallResult(item: RequestType)
 
     //do in main thread
