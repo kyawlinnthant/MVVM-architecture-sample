@@ -21,7 +21,7 @@ class PopularFragment : BaseFragment<FragmentPopularBinding>(FragmentPopularBind
             when (it.status) {
                 Resource.Status.LOADING -> {
                     Timber.tag(PopularFragment::class.java.simpleName + " :data")
-                        .d(it.data?.list?.size.toString())
+                        .d(it.data?.size.toString())
                     Timber.tag(PopularFragment::class.java.simpleName + " :message").d(it.message)
                 }
                 Resource.Status.SUCCESS -> {
@@ -29,7 +29,7 @@ class PopularFragment : BaseFragment<FragmentPopularBinding>(FragmentPopularBind
                     binding.viewLoadingState.progress.visibility = View.GONE
 
                     Timber.tag(PopularFragment::class.java.simpleName + " :data")
-                        .d(it.data?.list?.size.toString())
+                        .d(it.data?.size.toString())
                     Timber.tag(PopularFragment::class.java.simpleName + " :message").d(it.message)
                 }
                 Resource.Status.ERROR -> {
@@ -37,7 +37,7 @@ class PopularFragment : BaseFragment<FragmentPopularBinding>(FragmentPopularBind
                     binding.viewLoadingState.errorText.text = it.message
 
                     Timber.tag(PopularFragment::class.java.simpleName + " :data")
-                        .d(it.data?.list?.size.toString())
+                        .d(it.data?.size.toString())
                     Timber.tag(PopularFragment::class.java.simpleName + " :message").d(it.message)
                 }
                 Resource.Status.FAILURE -> {
@@ -46,7 +46,7 @@ class PopularFragment : BaseFragment<FragmentPopularBinding>(FragmentPopularBind
                     binding.viewLoadingState.errorText.text = it.message
 
                     Timber.tag(PopularFragment::class.java.simpleName + " :data")
-                        .d(it.data?.list?.size.toString())
+                        .d(it.data?.size.toString())
                     Timber.tag(PopularFragment::class.java.simpleName + " :message").d(it.message)
                 }
             }

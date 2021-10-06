@@ -21,21 +21,21 @@ class UpcomingFragment : BaseFragment<FragmentUpcomingBinding>(FragmentUpcomingB
                 Resource.Status.LOADING -> {
                     Timber.tag(UpcomingFragment::class.java.simpleName + " :message").d(it.message)
                     Timber.tag(UpcomingFragment::class.java.simpleName + " :data")
-                        .d(it.data?.list?.size.toString())
+                        .d(it.data?.size.toString())
                 }
                 Resource.Status.SUCCESS -> {
                     //todo setup to recycler view
                     binding.viewLoadingState.progress.visibility = View.GONE
                     Timber.tag(UpcomingFragment::class.java.simpleName + " :message").d(it.message)
                     Timber.tag(UpcomingFragment::class.java.simpleName + " :data")
-                        .d(it.data?.list?.size.toString())
+                        .d(it.data?.size.toString())
                 }
                 Resource.Status.ERROR -> {
                     binding.viewLoadingState.errorText.visibility = View.VISIBLE
                     binding.viewLoadingState.errorText.text = it.message
                     Timber.tag(UpcomingFragment::class.java.simpleName + " :message").d(it.message)
                     Timber.tag(UpcomingFragment::class.java.simpleName + " :data")
-                        .d(it.data?.list?.size.toString())
+                        .d(it.data?.size.toString())
                 }
                 Resource.Status.FAILURE -> {
                     binding.viewLoadingState.errorText.visibility = View.VISIBLE
@@ -43,7 +43,7 @@ class UpcomingFragment : BaseFragment<FragmentUpcomingBinding>(FragmentUpcomingB
                     binding.viewLoadingState.errorText.text = it.message
                     Timber.tag(UpcomingFragment::class.java.simpleName + " :message").d(it.message)
                     Timber.tag(UpcomingFragment::class.java.simpleName + " :data")
-                        .d(it.data?.list?.size.toString())
+                        .d(it.data?.size.toString())
                 }
             }
         }
