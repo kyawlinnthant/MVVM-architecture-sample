@@ -23,36 +23,21 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun requestMovies(type: String, page: Int) = flow {
 
-      /*  val response = api.getMovieListByTypes(type, API_KEY, page)
-        if (response.isSuccessful) {
-            try {
-                emit(Resource.loading(response.body()))
-                emit(Resource.success(response.body()))
-            } catch (e: Exception) {
-                emit(Resource.error(e.localizedMessage ?: "error"))
-                //todo no condition for fail state
-            }
-        }*/
-
-        //todo : should check this response -> success, fail, error
-        emit(safeApiCall { api.getMovieListByTypes(type, API_KEY, page)
-
-        })
-
+        emit(
+            safeApiCall { api.getMovieListByTypes(type, API_KEY, page) }
+        )
     }.flowOn(ioDispatcher)
 
 
     override suspend fun requestMovieDetail(id: Double, lang: String) = flow {
-        val response = api.getMovieDetail(id, API_KEY, lang)
-        try {
-            emit(Resource.loading(response.body()))
-            emit(Resource.success(response.body()))
-        } catch (e: Exception) {
-            emit(Resource.error(e.localizedMessage ?: "error", response.body()))
-        }
+
+        emit(
+            safeApiCall { api.getMovieDetail(id, API_KEY, lang) }
+        )
     }.flowOn(ioDispatcher)
 
     override suspend fun getMovies() = flow {
+
         val query = db.getMovies()
         try {
             emit(Resource.loading(query))
