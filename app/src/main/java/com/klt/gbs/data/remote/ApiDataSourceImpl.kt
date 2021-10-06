@@ -1,8 +1,9 @@
 package com.klt.gbs.data.remote
 
 import com.klt.gbs.model.Movie
+import com.klt.gbs.model.response.ApiResponse
 import com.klt.gbs.model.response.ResponseMovieList
-import com.klt.gbs.util.Resource
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ApiDataSourceImpl @Inject constructor(private val apiService: ApiService) : ApiDataSource {
@@ -11,9 +12,13 @@ class ApiDataSourceImpl @Inject constructor(private val apiService: ApiService) 
         type: String,
         key: String,
         page: Int
-    ): Resource<ResponseMovieList> = apiService.getMovieByTypes(type, key, page)
+    ): ApiResponse<ResponseMovieList> = apiService.getMovieByTypes(type, key, page)
 
-    override suspend fun getMovieDetail(id: Double,key: String,  lang: String): Resource<Movie> =
+    override suspend fun getMovieDetail(
+        id: Double,
+        key: String,
+        lang: String
+    ): ApiResponse<Movie> =
         apiService.getMovieDetail(id, key, lang)
 
 }

@@ -22,21 +22,23 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun requestMovies(type: String, page: Int) = flow {
         val response = api.getMovieListByTypes(type, API_KEY, page)
+//        Timber.tag( " Repo Data : ").e("${response} : ${response.data?.list}")
         try {
-            emit(Resource.loading(response.data))
-            emit(Resource.success(response.data))
+            emit(Resource.loading(response))
+            emit(Resource.success(response))
         } catch (e: Exception) {
-            emit(Resource.error(e.localizedMessage ?: "error", response.data))
+            emit(Resource.error(e.localizedMessage ?: "error", response))
         }
     }.flowOn(ioDispatcher)
+
 
     override suspend fun requestMovieDetail(id: Double, lang: String) = flow {
         val response = api.getMovieDetail(id, API_KEY, lang)
         try {
-            emit(Resource.loading(response.data))
-            emit(Resource.success(response.data))
+            emit(Resource.loading(response))
+            emit(Resource.success(response))
         } catch (e: Exception) {
-            emit(Resource.error(e.localizedMessage ?: "error", response.data))
+            emit(Resource.error(e.localizedMessage ?: "error", response))
         }
     }.flowOn(ioDispatcher)
 
