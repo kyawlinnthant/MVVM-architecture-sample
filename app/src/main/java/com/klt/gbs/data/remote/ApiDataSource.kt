@@ -1,8 +1,8 @@
 package com.klt.gbs.data.remote
 
 import com.klt.gbs.model.Movie
-import com.klt.gbs.model.response.ApiResponse
 import com.klt.gbs.model.response.ResponseMovieList
+import retrofit2.Response
 
 interface ApiDataSource {
 
@@ -10,7 +10,7 @@ interface ApiDataSource {
         type: String,
         key: String,
         page: Int
-    ): ApiResponse<ResponseMovieList>
+    ): Response<ResponseMovieList>
 
-    suspend fun getMovieDetail(id: Double, key: String, lang: String): ApiResponse<Movie>
+    suspend fun getMovieDetail(id: Double, key: String, lang: String): Response<Movie>
 }

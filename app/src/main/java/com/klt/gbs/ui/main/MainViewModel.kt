@@ -9,7 +9,6 @@ import com.klt.gbs.model.response.ResponseMovieList
 import com.klt.gbs.util.NetworkHelper
 import com.klt.gbs.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -25,17 +24,10 @@ class MainViewModel @Inject constructor(
     val movieList: LiveData<Resource<ResponseMovieList>> get() = _movieList
 
     fun getListByType(type: String) {
-
         viewModelScope.launch {
-
-            repo.requestMovies(type, 1).catch { e ->
-                _movieList.value = Resource.error(e.localizedMessage ?: "error")
-            }.collect {
-                Timber.e(it.toString())
-                if (networkHelper.isNetworkConnected()) {
-                    //todo
-//                    _movieList.value = Resource.success(it)
-                } else _movieList.value = Resource.error("NO INTERNET CONNECTION")
+            repo.requestMovies(type, 1).collect {
+                if (networkHelper.isNetworkConnected()) _movieList.value = it
+                else _movieList.value = Resource.error("NO INTERNET CONNECTION")
             }
         }
     }

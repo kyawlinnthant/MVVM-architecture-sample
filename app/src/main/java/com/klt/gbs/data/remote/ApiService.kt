@@ -1,7 +1,6 @@
 package com.klt.gbs.data.remote
 
 import com.klt.gbs.model.Movie
-import com.klt.gbs.model.response.ApiResponse
 import com.klt.gbs.model.response.ResponseMovieList
 import retrofit2.Response
 import retrofit2.http.GET
@@ -15,7 +14,7 @@ interface ApiService {
         @Path("type") movieType: String,
         @Query("api_key") key: String,
         @Query("page") pageNumber: Int
-    ): ApiResponse<ResponseMovieList>
+    ): Response<ResponseMovieList>
 
 
     @GET("movie/{id}")
@@ -23,5 +22,5 @@ interface ApiService {
         @Path("id") movieId: Double,
         @Query("api_key") key: String,
         @Query("language") language: String
-    ): ApiResponse<Movie>
+    ): Response<Movie>
 }

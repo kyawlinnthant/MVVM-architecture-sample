@@ -5,6 +5,7 @@ import com.klt.gbs.data.local.DbDataSource
 import com.klt.gbs.data.remote.ApiDataSource
 import com.klt.gbs.di.IoDispatcher
 import com.klt.gbs.model.Movie
+import com.klt.gbs.model.response.safeApiCall
 import com.klt.gbs.util.Resource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -21,26 +22,33 @@ class RepositoryImpl @Inject constructor(
 ) : Repository {
 
     override suspend fun requestMovies(type: String, page: Int) = flow {
-        val response = api.getMovieListByTypes(type, API_KEY, page)
-        //todo : should check this response -> success, fail, error
 
-//        Timber.tag( " Repo Data : ").e("${response} : ${response.data?.list}")
-        try {
-            emit(Resource.loading(response))
-            emit(Resource.success(response))
-        } catch (e: Exception) {
-            emit(Resource.error(e.localizedMessage ?: "error", response))
-        }
+      /*  val response = api.getMovieListByTypes(type, API_KEY, page)
+        if (response.isSuccessful) {
+            try {
+                emit(Resource.loading(response.body()))
+                emit(Resource.success(response.body()))
+            } catch (e: Exception) {
+                emit(Resource.error(e.localizedMessage ?: "error"))
+                //todo no condition for fail state
+            }
+        }*/
+
+        //todo : should check this response -> success, fail, error
+        emit(safeApiCall { api.getMovieListByTypes(type, API_KEY, page)
+
+        })
+
     }.flowOn(ioDispatcher)
 
 
     override suspend fun requestMovieDetail(id: Double, lang: String) = flow {
         val response = api.getMovieDetail(id, API_KEY, lang)
         try {
-            emit(Resource.loading(response))
-            emit(Resource.success(response))
+            emit(Resource.loading(response.body()))
+            emit(Resource.success(response.body()))
         } catch (e: Exception) {
-            emit(Resource.error(e.localizedMessage ?: "error", response))
+            emit(Resource.error(e.localizedMessage ?: "error", response.body()))
         }
     }.flowOn(ioDispatcher)
 

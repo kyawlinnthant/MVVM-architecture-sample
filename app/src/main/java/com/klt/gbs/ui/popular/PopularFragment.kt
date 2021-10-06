@@ -17,6 +17,7 @@ class PopularFragment : BaseFragment<FragmentPopularBinding>(FragmentPopularBind
     override fun observe() {
 
         viewModel.movieList.observe(viewLifecycleOwner) {
+
             when (it.status) {
                 Resource.Status.LOADING -> {
                     Timber.tag(PopularFragment::class.java.simpleName + " :message").d(it.message)
@@ -26,24 +27,24 @@ class PopularFragment : BaseFragment<FragmentPopularBinding>(FragmentPopularBind
                 Resource.Status.SUCCESS -> {
                     //todo setup to recycler view
                     binding.viewLoadingState.progress.visibility = View.GONE
-                    Timber.tag(PopularFragment::class.java.simpleName + " :message").d(it.message)
                     Timber.tag(PopularFragment::class.java.simpleName + " :data")
                         .d(it.data?.list?.size.toString())
+                    Timber.tag("Pop" + " :message").d(it.message)
                 }
                 Resource.Status.ERROR -> {
                     binding.viewLoadingState.errorText.visibility = View.VISIBLE
                     binding.viewLoadingState.errorText.text = it.message
-                    Timber.tag(PopularFragment::class.java.simpleName + " :message").d(it.message)
                     Timber.tag(PopularFragment::class.java.simpleName + " :data")
                         .d(it.data?.list?.size.toString())
+                    Timber.tag(PopularFragment::class.java.simpleName + " :message").d(it.message)
                 }
                 Resource.Status.FAILURE -> {
                     binding.viewLoadingState.errorText.visibility = View.VISIBLE
                     binding.viewLoadingState.retryButton.visibility = View.VISIBLE
                     binding.viewLoadingState.errorText.text = it.message
-                    Timber.tag(PopularFragment::class.java.simpleName + " :message").d(it.message)
                     Timber.tag(PopularFragment::class.java.simpleName + " :data")
                         .d(it.data?.list?.size.toString())
+                    Timber.tag(PopularFragment::class.java.simpleName + " :message").d(it.message)
                 }
             }
         }
