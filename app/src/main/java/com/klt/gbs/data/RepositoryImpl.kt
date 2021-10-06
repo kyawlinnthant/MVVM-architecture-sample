@@ -21,6 +21,7 @@ class RepositoryImpl @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : Repository {
 
+    //todo : need to consider return type and add NetworkBoundResource
     override suspend fun requestMovies(type: String, page: Int) = flow {
 
         emit(
@@ -28,8 +29,25 @@ class RepositoryImpl @Inject constructor(
         )
     }.flowOn(ioDispatcher)
 
-
     override suspend fun requestMovieDetail(id: Double, lang: String) = flow {
+
+        /* return object : NetworkBondResource<Movie,Movie>(ioDispatcher){
+             override fun saveCallResult(item: Movie) {
+                 db.saveMovies(item)
+             }
+
+             override fun shouldFetch(data: Movie?): Boolean {
+                 return data == null
+             }
+
+             override fun loadFromDb(): LiveData<Movie> {
+                 return db.getMovies()
+             }
+
+             override fun createCall(): LiveData<Resource<Movie>> {
+                 return db.getMovies()
+             }
+         }.asLiveData()*/
 
         emit(
             safeApiCall { api.getMovieDetail(id, API_KEY, lang) }
@@ -43,7 +61,30 @@ class RepositoryImpl @Inject constructor(
             emit(Resource.loading(query))
             emit(Resource.success(query))
         } catch (e: Exception) {
-            emit(Resource.error(e.localizedMessage ?: "error", query))
+            emit(Resource.error(e.localizedMessage ?: "db List Retrieve error", query))
+        }
+    }.flowOn(ioDispatcher)
+
+    override suspend fun getMovie() = flow {
+        val query = db.getMovie()
+        try {
+            emit(Resource.loading(query))
+            emit(Resource.success(query))
+        } catch (e: Exception) {
+            emit(Resource.error(e.localizedMessage ?: "db Object Retrieve error", query))
+        }
+
+    }.flowOn(ioDispatcher)
+
+    override suspend fun addMovie(movie: Movie) = flow {
+        val query = db.saveMovie(movie)
+        try {
+            emit(Resource.loading(query))
+            emit(Resource.success(query))
+        } catch (e: Exception) {
+            emit(
+                Resource.error(e.localizedMessage ?: "db Object insert error", query)
+            )
         }
     }.flowOn(ioDispatcher)
 
@@ -53,9 +94,8 @@ class RepositoryImpl @Inject constructor(
             emit(Resource.loading(query))
             emit(Resource.success(query))
         } catch (e: Exception) {
-            emit(Resource.error(e.localizedMessage ?: "error", query))
+            emit(Resource.error(e.localizedMessage ?: "db List insert error", query))
         }
     }.flowOn(ioDispatcher)
-
 
 }
