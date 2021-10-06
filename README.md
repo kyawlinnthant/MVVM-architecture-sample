@@ -22,12 +22,12 @@ This is a simple sample repository about MVVM architecture with the network and 
 - Observe the encapulated LiveData from ViewModel from Activity
 - Show in RecyclerView with endless scroll (Paging Library)
 
-> Simple usage of network and local data
-> Some Higher Order Functions
-> Inheritance usage in BaseFragment,BaseActivities
-> ViewBinding usage
-> Navigation usage with Bottom Navigation Drawer and ActionBar
-> OkHttpProfiler for network debugging
+> Simple usage of network and local data, 
+> Some Higher Order Functions, 
+> Inheritance usage in BaseFragment:BaseActivities: ,
+> ViewBinding usage,
+> Navigation usage with Bottom Navigation Drawer and ActionBar,
+> OkHttpProfiler for network debugging,
 > Corrotines for asynchronous execution
 
 
