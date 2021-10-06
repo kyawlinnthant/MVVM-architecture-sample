@@ -37,7 +37,6 @@ class MainViewModel @Inject constructor(
 //                    _movieList.value = Resource.success(it)
                 } else _movieList.value = Resource.error("NO INTERNET CONNECTION")
             }
-
         }
     }
 }

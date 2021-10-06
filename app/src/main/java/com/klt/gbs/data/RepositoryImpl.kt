@@ -22,6 +22,8 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun requestMovies(type: String, page: Int) = flow {
         val response = api.getMovieListByTypes(type, API_KEY, page)
+        //todo : should check this response -> success, fail, error
+
 //        Timber.tag( " Repo Data : ").e("${response} : ${response.data?.list}")
         try {
             emit(Resource.loading(response))

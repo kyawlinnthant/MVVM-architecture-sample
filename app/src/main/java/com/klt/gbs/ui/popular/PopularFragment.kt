@@ -45,10 +45,8 @@ class PopularFragment : BaseFragment<FragmentPopularBinding>(FragmentPopularBind
                     Timber.tag(PopularFragment::class.java.simpleName + " :data")
                         .d(it.data?.list?.size.toString())
                 }
-
             }
         }
-
     }
 
     override fun initUi() {
