@@ -2,6 +2,7 @@ package com.klt.gbs.model.response
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.klt.gbs.model.Movie
 import kotlinx.parcelize.Parcelize
 
 /*
@@ -13,6 +14,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ResponseMovieList(
-    @SerializedName("results") val list: List<ResponseMovie>,
+    @SerializedName("results") val list: List<Movie>,
     val total_results: Double
 ) : Parcelable
