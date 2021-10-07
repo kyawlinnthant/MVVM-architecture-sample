@@ -33,6 +33,5 @@ class RepositoryImpl @Inject constructor(
                 db.saveMovies(data.list)
             }
 
-
         }.asLiveData()
 }
