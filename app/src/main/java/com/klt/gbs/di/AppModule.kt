@@ -70,6 +70,6 @@ class AppModule {
     fun provideMovieDatabase(
         @ApplicationContext context: Context
     ): MovieDatabase =
-        Room.databaseBuilder(context, MovieDatabase::class.java, AppConstant.DB_NAME).build()
+        Room.databaseBuilder(context, MovieDatabase::class.java, AppConstant.DB_NAME).fallbackToDestructiveMigration().build()
 
 }

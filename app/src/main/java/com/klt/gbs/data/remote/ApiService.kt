@@ -19,7 +19,7 @@ interface ApiService {
 
     @GET("movie/{id}")
     suspend fun getMovieDetail(
-        @Path("id") movieId: Double,
+        @Path("id") movieId: Int,
         @Query("api_key") key: String,
         @Query("language") language: String
     ): Response<Movie>

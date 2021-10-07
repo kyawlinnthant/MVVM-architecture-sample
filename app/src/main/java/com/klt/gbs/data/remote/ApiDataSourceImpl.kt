@@ -11,7 +11,7 @@ class ApiDataSourceImpl @Inject constructor(private val apiService: ApiService) 
     ) = apiService.getMovieByTypes(type, key, page)
 
     override suspend fun getMovieDetail(
-        id: Double,
+        id: Int,
         key: String,
         lang: String
     ) = apiService.getMovieDetail(id, key, lang)

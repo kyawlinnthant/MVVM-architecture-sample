@@ -12,5 +12,5 @@ interface ApiDataSource {
         page: Int
     ): Response<ResponseMovieList>
 
-    suspend fun getMovieDetail(id: Double, key: String, lang: String): Response<Movie>
+    suspend fun getMovieDetail(id: Int, key: String, lang: String): Response<Movie>
 }
