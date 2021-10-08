@@ -28,6 +28,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(ActivityDetailBinding
 
     override fun initUi() {
         viewModel.fetchData(_id!!)
+        setupActionBar()
     }
 
     override fun observe() {
@@ -36,13 +37,25 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(ActivityDetailBinding
         }
     }
 
-    private fun setupView(movie : Movie){
+    private fun setupActionBar() {
+        supportActionBar?.let {
+            it.title = this.javaClass.simpleName
+            it.setDisplayHomeAsUpEnabled(true)
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    private fun setupView(movie: Movie) {
         binding.title.text = movie.original_title
         binding.date.text = movie.release_date
         binding.vote.text = movie.vote_average.toString()
         binding.overview.text = movie.overview
         Glide.with(this)
-            .load(movie.backdrop_path)
+            .load("https://image.tmdb.org/t/p/original/" + movie.backdrop_path)
             .into(binding.img)
     }
 
