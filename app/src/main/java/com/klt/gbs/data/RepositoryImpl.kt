@@ -31,30 +31,17 @@ class RepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getPopularMovies(): List<Movie> {
+    override suspend fun getMovies(): List<Movie> {
         return withContext(ioDispatcher) {
-            db.getPopularMovies()
+            db.getMovies()
         }
     }
 
-    override suspend fun addPopularMovies(list: List<Movie>) {
+    override suspend fun addMovies(list: List<Movie>) {
 
         withContext(ioDispatcher) {
-            db.savePopularMovies(list)
+            db.saveMovies(list)
         }
     }
-
-    override suspend fun getUpcomingMovies(): List<Movie> {
-        return withContext(ioDispatcher) {
-            db.getUpcomingMovies()
-        }
-    }
-
-    override suspend fun addUpcomingMovies(list: List<Movie>) {
-        withContext(ioDispatcher) {
-            db.saveUpcomingMovies(list)
-        }
-    }
-
 
 }

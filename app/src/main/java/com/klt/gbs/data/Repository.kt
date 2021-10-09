@@ -14,8 +14,6 @@ interface Repository {
     suspend fun requestMovieDetail(id: Int, lang: String): Resource<Movie>
 
     //from db
-    suspend fun getPopularMovies(): List<Movie>?
-    suspend fun addPopularMovies(list: List<Movie>)
-    suspend fun getUpcomingMovies(): List<Movie>?
-    suspend fun addUpcomingMovies(list: List<Movie>)
+    suspend fun getMovies(): List<Movie>?
+    suspend fun addMovies(list: List<Movie>)
 }

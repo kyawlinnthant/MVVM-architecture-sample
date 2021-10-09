@@ -8,18 +8,7 @@ import com.klt.gbs.app.AppConstant
 import com.klt.gbs.model.Movie
 
 @Dao
-interface PopularMovieDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMovies(movies: List<Movie>)
-
-    @Query("SELECT * FROM ${AppConstant.DB_NAME}")
-    suspend fun retrieveMovies(): List<Movie>
-
-}
-
-@Dao
-interface UpcomingMovieDao {
+interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovies(movies: List<Movie>)

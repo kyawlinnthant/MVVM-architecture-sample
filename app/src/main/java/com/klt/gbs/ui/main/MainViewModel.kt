@@ -1,4 +1,4 @@
-package com.klt.gbs.ui.popular
+package com.klt.gbs.ui.main
 
 import androidx.lifecycle.*
 import com.klt.gbs.data.Repository
@@ -10,9 +10,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PopularViewModel @Inject constructor(
-    private val repo: Repository, private val networkHelper: NetworkHelper
-) : ViewModel() {
+class MainViewModel @Inject constructor(
+    private val repo : Repository, private val networkHelper: NetworkHelper
+) : ViewModel(){
 
     val movies = MediatorLiveData<Resource<List<Movie>>>()
 
@@ -35,7 +35,7 @@ class PopularViewModel @Inject constructor(
                 _updatedMovies.value = Resource.loading(null)
                 val response = repo.requestMovies(type, 1)
                 response.data?.let {
-                    repo.addPopularMovies(it.list)
+                    repo.addMovies(it.list)
                     _updatedMovies.value = Resource.success(it.list)
                 }
             }
@@ -45,7 +45,7 @@ class PopularViewModel @Inject constructor(
     private fun getDbList(): LiveData<Resource<List<Movie>>> {
         val liveData = MutableLiveData<Resource<List<Movie>>>()
         viewModelScope.launch {
-            val movies = repo.getPopularMovies()
+            val movies = repo.getMovies()
             liveData.value = Resource.success(movies)
         }
         return liveData

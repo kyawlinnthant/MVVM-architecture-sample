@@ -7,6 +7,7 @@ import com.klt.gbs.base.BaseFragment
 import com.klt.gbs.databinding.FragmentPopularBinding
 import com.klt.gbs.ui.adapter.MovieListAdapter
 import com.klt.gbs.ui.detail.DetailActivity
+import com.klt.gbs.ui.main.MainViewModel
 import com.klt.gbs.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class PopularFragment : BaseFragment<FragmentPopularBinding>(FragmentPopularBinding::inflate) {
 
     private var movieListAdapter: MovieListAdapter? = null
-    private val viewModel: PopularViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
 
     override fun observe() {
 
