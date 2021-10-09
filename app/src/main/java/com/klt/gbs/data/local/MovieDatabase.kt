@@ -6,5 +6,6 @@ import com.klt.gbs.model.Movie
 
 @Database(entities = [Movie::class], version = 2, exportSchema = false)
 abstract class MovieDatabase : RoomDatabase() {
-    abstract fun getMovieDao(): MovieDao
+    abstract fun getPopular(): PopularMovieDao
+    abstract fun getUpcoming(): UpcomingMovieDao
 }

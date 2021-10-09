@@ -8,10 +8,7 @@ import com.klt.gbs.model.Movie
 import com.klt.gbs.model.response.safeApiCall
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,36 +19,42 @@ class RepositoryImpl @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : Repository {
 
-    override suspend fun requestMovies(type: String, page: Int) = flow {
-
-        emit(
-            safeApiCall { api.getMovieListByTypes(type, API_KEY, page) }
-        )
-    }.flowOn(ioDispatcher)
-
-    override suspend fun requestMovieDetail(id: Int, lang: String) = flow {
-
-        emit(
-            safeApiCall { api.getMovieDetail(id, API_KEY, lang) }
-        )
-    }.flowOn(ioDispatcher)
-
-    override suspend fun getMovies(): List<Movie> {
-        var movies: List<Movie>
-        withContext(ioDispatcher) {
-            movies = db.getMovies()
+    override suspend fun requestMovies(type: String, page: Int) = withContext(ioDispatcher) {
+        safeApiCall {
+            api.fetchMoviesByType(type, API_KEY, page)
         }
-        Timber.tag("getMovies in Repo : ").d(movies.toString())
-        return movies
-
     }
 
-    override suspend fun addMovies(list: List<Movie>) = withContext(ioDispatcher) {
-        db.saveMovies(list)
+    override suspend fun requestMovieDetail(id: Int, lang: String) = withContext(ioDispatcher) {
+        safeApiCall {
+            api.fetchMovie(id, API_KEY, lang)
+        }
     }
 
-    override suspend fun deleteMovies() = withContext(ioDispatcher) {
-        db.deleteMovies()
+    override suspend fun getPopularMovies(): List<Movie> {
+        return withContext(ioDispatcher) {
+            db.getPopularMovies()
+        }
     }
+
+    override suspend fun addPopularMovies(list: List<Movie>) {
+
+        withContext(ioDispatcher) {
+            db.savePopularMovies(list)
+        }
+    }
+
+    override suspend fun getUpcomingMovies(): List<Movie> {
+        return withContext(ioDispatcher) {
+            db.getUpcomingMovies()
+        }
+    }
+
+    override suspend fun addUpcomingMovies(list: List<Movie>) {
+        withContext(ioDispatcher) {
+            db.saveUpcomingMovies(list)
+        }
+    }
+
 
 }

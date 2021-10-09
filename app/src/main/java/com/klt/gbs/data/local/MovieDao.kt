@@ -1,18 +1,31 @@
 package com.klt.gbs.data.local
 
-import androidx.room.*
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.klt.gbs.app.AppConstant
 import com.klt.gbs.model.Movie
 
 @Dao
-interface MovieDao {
+interface PopularMovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveMovies(movies: List<Movie>)
+    suspend fun insertMovies(movies: List<Movie>)
 
     @Query("SELECT * FROM ${AppConstant.DB_NAME}")
     suspend fun retrieveMovies(): List<Movie>
 
-    @Query("DELETE FROM ${AppConstant.DB_NAME}")
-    suspend fun deleteMovies()
+}
+
+@Dao
+interface UpcomingMovieDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertMovies(movies: List<Movie>)
+
+    @Query("SELECT * FROM ${AppConstant.DB_NAME}")
+    suspend fun retrieveMovies(): List<Movie>
+
 }

@@ -78,13 +78,6 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(ActivityDetailBinding
                 binding.viewLoadingState.errorText.visibility = View.VISIBLE
                 binding.viewLoadingState.errorText.text = movie.message
             }
-            Resource.Status.FAILURE -> {
-                binding.viewLayout.visibility = View.GONE
-                binding.viewLoadingState.loadingLayout.visibility = View.VISIBLE
-                binding.viewLoadingState.errorText.visibility = View.VISIBLE
-                binding.viewLoadingState.retryButton.visibility = View.VISIBLE
-                binding.viewLoadingState.errorText.text = movie.message
-            }
         }
 
     }
