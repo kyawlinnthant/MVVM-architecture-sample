@@ -5,15 +5,15 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.klt.gbs.base.BaseFragment
 import com.klt.gbs.databinding.FragmentPopularBinding
-import com.klt.gbs.model.Movie
-import com.klt.gbs.ui.adapter.MovieAdapter
+import com.klt.gbs.ui.adapter.MovieListAdapter
+import com.klt.gbs.ui.detail.DetailActivity
 import com.klt.gbs.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PopularFragment : BaseFragment<FragmentPopularBinding>(FragmentPopularBinding::inflate) {
 
-    private var movieAdapter: MovieAdapter? = null
+    private var movieListAdapter: MovieListAdapter? = null
     private val viewModel: PopularViewModel by viewModels()
 
     override fun observe() {
@@ -26,7 +26,9 @@ class PopularFragment : BaseFragment<FragmentPopularBinding>(FragmentPopularBind
                 }
                 Resource.Status.SUCCESS -> {
                     binding.viewLoadingState.progress.visibility = View.GONE
-                    setupRecyclerView(it.data!!)
+                    movieListAdapter?.submitList(it.data){
+                        binding.recyclerView.scrollToPosition(0)
+                    }
                 }
                 Resource.Status.ERROR -> {
                     binding.viewLoadingState.errorText.visibility = View.VISIBLE
@@ -38,14 +40,20 @@ class PopularFragment : BaseFragment<FragmentPopularBinding>(FragmentPopularBind
 
     override fun initUi() {
         viewModel.getList("popular")
+        setUpRecyclerView()
     }
 
-    private fun setupRecyclerView(movies: List<Movie>) {
-        movieAdapter = MovieAdapter(movies)
-        binding.recyclerView.apply {
-            this.layoutManager =
+    private fun setUpRecyclerView() {
+        movieListAdapter = MovieListAdapter { getItemClick(it) }.apply {
+            binding.recyclerView.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            this.adapter = movieAdapter
+            binding.recyclerView.adapter = this
         }
     }
+
+    private fun getItemClick(position: Int) {
+        val item = movieListAdapter?.getClickItem(position)
+        startActivity(DetailActivity.newIntent(requireContext(), item!!.movieId))
+    }
+
 }

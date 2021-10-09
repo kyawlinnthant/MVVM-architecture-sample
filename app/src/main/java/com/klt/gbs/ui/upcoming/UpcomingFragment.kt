@@ -25,7 +25,9 @@ class UpcomingFragment : BaseFragment<FragmentUpcomingBinding>(FragmentUpcomingB
                 }
                 Resource.Status.SUCCESS -> {
                     binding.viewLoadingState.progress.visibility = View.GONE
-                    movieListAdapter?.submitList(it.data)
+                    movieListAdapter?.submitList(it.data){
+                        binding.recyclerView.scrollToPosition(0)
+                    }
                 }
                 Resource.Status.ERROR -> {
                     binding.viewLoadingState.errorText.visibility = View.VISIBLE
