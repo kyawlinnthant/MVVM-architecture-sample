@@ -5,6 +5,25 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
+/*
+
+"adult"
+"backdrop_path"
+"genre_ids"
+"id"
+"original_language"
+"original_title"
+"overview"
+"popularity"
+"poster_path"
+"release_date"
+"title"
+"video"
+"vote_average"
+"vote_count"
+
+*/
+
 
 
 /*{
@@ -27,17 +46,20 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity
 data class Movie(
+
+    @Json(name = "adult") val isAdult : Boolean,
+    @Json(name = "backdrop_path") val path: String,
+    @Json(name = "genre_ids") val genreId : List<Int>,
     @PrimaryKey(autoGenerate = true)
-    @Json(name = "id")
-    val movieId: Int,
-    @Json(name = "original_title")
-    val title: String,
-    @Json(name = "backdrop_path")
-    val path: String,
-    @Json(name = "overview")
-    val overview: String,
-    @Json(name = "release_date")
-    val releaseDate: String,
-    @Json(name = "vote_average")
-    val voteAverage: Double
+    @Json(name = "id") val movieId: Int,
+    @Json(name = "original_language") val originalLanguage : String,
+    @Json(name = "original_title") val originalTitle: String,
+    @Json(name = "overview") val overview: String,
+    @Json(name = "popularity") val popularity : Double,
+    @Json(name = "poster_path") val posterPath : String,
+    @Json(name = "release_date") val releaseDate: String,
+    @Json(name = "title")val title : String,
+    @Json(name = "video")val isVideo :Boolean,
+    @Json(name = "vote_average") val voteAverage: Double,
+    @Json(name = "vote_count") val voteCount : Int
 ) : Parcelable

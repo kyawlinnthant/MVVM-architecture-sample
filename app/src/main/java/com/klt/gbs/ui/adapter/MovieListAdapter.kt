@@ -40,7 +40,7 @@ class MovieListAdapter(
 
         fun bind(item: Movie?) {
             with(item) {
-                binding.title.text = this!!.title
+                binding.title.text = this!!.originalTitle
                 binding.date.text = this.releaseDate
                 Glide.with(itemView.context)
                     .load("https://image.tmdb.org/t/p/original/" + this.path)

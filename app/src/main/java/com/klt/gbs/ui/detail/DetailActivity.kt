@@ -50,7 +50,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(ActivityDetailBinding
     }
 
     private fun setupView(movie: Movie) {
-        binding.title.text = movie.title
+        binding.title.text = movie.originalTitle
         binding.date.text = movie.releaseDate
         binding.vote.text = movie.voteAverage.toString()
         binding.overview.text = movie.overview
