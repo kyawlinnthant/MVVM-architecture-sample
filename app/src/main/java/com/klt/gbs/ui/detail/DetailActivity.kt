@@ -50,12 +50,12 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(ActivityDetailBinding
     }
 
     private fun setupView(movie: Movie) {
-        binding.title.text = movie.original_title
-        binding.date.text = movie.release_date
-        binding.vote.text = movie.vote_average.toString()
+        binding.title.text = movie.title
+        binding.date.text = movie.releaseDate
+        binding.vote.text = movie.voteAverage.toString()
         binding.overview.text = movie.overview
         Glide.with(this)
-            .load("https://image.tmdb.org/t/p/original/" + movie.backdrop_path)
+            .load("https://image.tmdb.org/t/p/original/" + movie.path)
             .into(binding.img)
     }
 

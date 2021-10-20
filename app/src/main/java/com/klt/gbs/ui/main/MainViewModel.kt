@@ -7,6 +7,7 @@ import com.klt.gbs.util.NetworkHelper
 import com.klt.gbs.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,6 +36,7 @@ class MainViewModel @Inject constructor(
                 _updatedMovies.value = Resource.loading(null)
                 val response = repo.requestMovies(type, 1)
                 response.data?.let {
+                    Timber.tag("vm").e(it.list.size.toString())
                     repo.addMovies(it.list)
                     _updatedMovies.value = Resource.success(it.list)
                 }

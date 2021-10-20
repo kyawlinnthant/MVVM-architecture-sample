@@ -1,7 +1,6 @@
 package com.klt.gbs.ui.main
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController

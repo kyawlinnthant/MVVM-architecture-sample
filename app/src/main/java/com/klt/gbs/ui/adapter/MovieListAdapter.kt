@@ -40,10 +40,10 @@ class MovieListAdapter(
 
         fun bind(item: Movie?) {
             with(item) {
-                binding.title.text = this!!.original_title
-                binding.date.text = this.release_date
+                binding.title.text = this!!.title
+                binding.date.text = this.releaseDate
                 Glide.with(itemView.context)
-                    .load("https://image.tmdb.org/t/p/original/" + this.backdrop_path)
+                    .load("https://image.tmdb.org/t/p/original/" + this.path)
                     .into(binding.img)
             }
             itemView.setOnClickListener { onClick(adapterPosition) }

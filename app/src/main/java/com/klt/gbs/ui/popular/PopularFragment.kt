@@ -10,6 +10,7 @@ import com.klt.gbs.ui.detail.DetailActivity
 import com.klt.gbs.ui.main.MainViewModel
 import com.klt.gbs.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class PopularFragment : BaseFragment<FragmentPopularBinding>(FragmentPopularBinding::inflate) {
@@ -20,6 +21,8 @@ class PopularFragment : BaseFragment<FragmentPopularBinding>(FragmentPopularBind
     override fun observe() {
 
         viewModel.movies.observe(viewLifecycleOwner) {
+
+            Timber.tag("frag").e(it.data?.size.toString())
 
             when (it.status) {
                 Resource.Status.LOADING -> {
@@ -46,8 +49,7 @@ class PopularFragment : BaseFragment<FragmentPopularBinding>(FragmentPopularBind
 
     private fun setUpRecyclerView() {
         movieListAdapter = MovieListAdapter { getItemClick(it) }.apply {
-            binding.recyclerView.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             binding.recyclerView.adapter = this
         }
     }

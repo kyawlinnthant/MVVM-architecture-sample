@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
 
 
@@ -28,16 +29,16 @@ import kotlinx.parcelize.Parcelize
 @Entity
 data class Movie(
     @PrimaryKey(autoGenerate = true)
-    @SerializedName("id")
+    @Json(name = "id")
     val movieId: Int,
-    @SerializedName("original_title")
-    val original_title: String,
-    @SerializedName("backdrop_path")
-    val backdrop_path: String,
-    @SerializedName("overview")
+    @Json(name = "original_title")
+    val title: String,
+    @Json(name = "backdrop_path")
+    val path: String,
+    @Json(name = "overview")
     val overview: String,
-    @SerializedName("release_date")
-    val release_date: String,
-    @SerializedName("vote_average")
-    val vote_average: Double
+    @Json(name = "release_date")
+    val releaseDate: String,
+    @Json(name = "vote_average")
+    val voteAverage: Double
 ) : Parcelable
