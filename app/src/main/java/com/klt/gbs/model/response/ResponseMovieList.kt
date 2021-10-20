@@ -15,5 +15,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ResponseMovieList(
     @SerializedName("results") val list: List<Movie>,
-    val total_results: Double
+    val total_results: Double,
+    val page : Int
 ) : Parcelable

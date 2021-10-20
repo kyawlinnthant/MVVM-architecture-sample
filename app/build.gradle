@@ -54,12 +54,16 @@ ext{
     okhttp_v = '4.9.0'
     gson_v = '2.9.0'
     room_v = '2.3.0'
-    coroutines_v = '1.4.3'
+    coroutines_v = '1.5.2'
     datastore_v = '1.0.0'
     timber_v = '4.7.1'
 }
 
 dependencies {
+
+    def paging_version = "3.0.1"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+
 
     //kotlin android extensions
     implementation "androidx.core:core-ktx:$core_version"
