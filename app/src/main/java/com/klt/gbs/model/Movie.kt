@@ -3,7 +3,6 @@ package com.klt.gbs.model
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
 

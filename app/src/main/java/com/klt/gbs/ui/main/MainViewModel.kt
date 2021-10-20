@@ -35,6 +35,7 @@ class MainViewModel @Inject constructor(
             if (networkHelper.isNetworkConnected()) {
                 _updatedMovies.value = Resource.loading(null)
                 val response = repo.requestMovies(type, 1)
+                Timber.tag("vm res").e(response.data.toString())
                 response.data?.let {
                     Timber.tag("vm").e(it.list.size.toString())
                     repo.addMovies(it.list)
